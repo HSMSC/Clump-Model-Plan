@@ -1,0 +1,219 @@
+
+>>> #Training a model to ID clumps. 
+>>> 
+>>> #The model will be trained with sets of clumps grabbed from images, either as negative clumps or positive clumps. 
+>>> 
+>>> #To simplify the process, each image will be spliced into a set of sub images, as small as possible while still showing clumps at good resolution. 
+>>> 
+>>> #Step 1: Crop all images to the same size and keep them with square dimensions. Use FIJI for this step. Crop them to 1200X1200
+>>>     1.1: Import raw images to Fiji as an image sequence, select the area of interest, crop all, and save as the new cropped image sequence. Keep the images square in shape.
+  File "<stdin>", line 1
+    1.1: Import raw images to Fiji as an image sequence, select the area of interest, crop all, and save as the new cropped image sequence. Keep the images square in shape.
+IndentationError: unexpected indent
+>>>     
+>>> #Step 2: Split all images into smaller images, still keeping them square.  
+>>> 
+>>> Using image_slicer
+  File "<stdin>", line 1
+    Using image_slicer
+          ^^^^^^^^^^^^
+SyntaxError: invalid syntax
+>>> 
+>>> from image_slicer import slice
+import glob
+
+images=glob.glob('MATCR24C/*.png', recursive=True)
+for image in images:
+	slice(image, 4)
+
+
+images=glob.glob('MATCR24C/*.png', recursive=True)
+for image in images:
+	slice(image, 4, save=False)
+
+#Files are now split and saved in the same directory.
+
+
+#Step 3: Do some image preprocessing, filter, binary, etc. 
+
+#Step 4: Train the model with the images, negative and positive. Will use 80% of whole images to train and leave 20% to test.  https://www.simplilearn.com/tutorials/deep-learning-tutorial/guide-to-building-powerful-keras-image-classification-models
+
+#Step 5: If model looks good, apply it to the rest of the patient samples, that is 40 samples 
+
+>>> import glob
+>>> 
+>>> images=glob.glob('MATCR24C/*.png', recursive=True)
+>>> for image in images:
+...     slice(image, 4)
+... 
+(<Tile #1 - C2_S1_A_02_01_01_01.png>, <Tile #2 - C2_S1_A_02_01_01_02.png>, <Tile #3 - C2_S1_A_02_01_02_01.png>, <Tile #4 - C2_S1_A_02_01_02_02.png>)
+(<Tile #1 - C2_S1_A_02_02_01_01.png>, <Tile #2 - C2_S1_A_02_02_01_02.png>, <Tile #3 - C2_S1_A_02_02_02_01.png>, <Tile #4 - C2_S1_A_02_02_02_02.png>)
+(<Tile #1 - C1_S1_B_01_01_01_01.png>, <Tile #2 - C1_S1_B_01_01_01_02.png>, <Tile #3 - C1_S1_B_01_01_02_01.png>, <Tile #4 - C1_S1_B_01_01_02_02.png>)
+(<Tile #1 - C2_S1_C_01_01_01_01.png>, <Tile #2 - C2_S1_C_01_01_01_02.png>, <Tile #3 - C2_S1_C_01_01_02_01.png>, <Tile #4 - C2_S1_C_01_01_02_02.png>)
+(<Tile #1 - C1_S1_B_01_02_01_01.png>, <Tile #2 - C1_S1_B_01_02_01_02.png>, <Tile #3 - C1_S1_B_01_02_02_01.png>, <Tile #4 - C1_S1_B_01_02_02_02.png>)
+(<Tile #1 - C2_S1_C_01_02_01_01.png>, <Tile #2 - C2_S1_C_01_02_01_02.png>, <Tile #3 - C2_S1_C_01_02_02_01.png>, <Tile #4 - C2_S1_C_01_02_02_02.png>)
+(<Tile #1 - C1_S1_A_02_01_01_01.png>, <Tile #2 - C1_S1_A_02_01_01_02.png>, <Tile #3 - C1_S1_A_02_01_02_01.png>, <Tile #4 - C1_S1_A_02_01_02_02.png>)
+(<Tile #1 - C1_S1_A_02_02_01_01.png>, <Tile #2 - C1_S1_A_02_02_01_02.png>, <Tile #3 - C1_S1_A_02_02_02_01.png>, <Tile #4 - C1_S1_A_02_02_02_02.png>)
+(<Tile #1 - C1_S1_C_01_01_01_01.png>, <Tile #2 - C1_S1_C_01_01_01_02.png>, <Tile #3 - C1_S1_C_01_01_02_01.png>, <Tile #4 - C1_S1_C_01_01_02_02.png>)
+(<Tile #1 - C2_S1_B_01_01_01_01.png>, <Tile #2 - C2_S1_B_01_01_01_02.png>, <Tile #3 - C2_S1_B_01_01_02_01.png>, <Tile #4 - C2_S1_B_01_01_02_02.png>)
+(<Tile #1 - C1_S1_A_01_01.png>, <Tile #2 - C1_S1_A_01_02.png>, <Tile #3 - C1_S1_A_02_01.png>, <Tile #4 - C1_S1_A_02_02.png>)
+(<Tile #1 - C1_S1_C_01_02_01_01.png>, <Tile #2 - C1_S1_C_01_02_01_02.png>, <Tile #3 - C1_S1_C_01_02_02_01.png>, <Tile #4 - C1_S1_C_01_02_02_02.png>)
+(<Tile #1 - C1_S1_C_01_01.png>, <Tile #2 - C1_S1_C_01_02.png>, <Tile #3 - C1_S1_C_02_01.png>, <Tile #4 - C1_S1_C_02_02.png>)
+(<Tile #1 - C2_S1_B_01_02_01_01.png>, <Tile #2 - C2_S1_B_01_02_01_02.png>, <Tile #3 - C2_S1_B_01_02_02_01.png>, <Tile #4 - C2_S1_B_01_02_02_02.png>)
+(<Tile #1 - C1_S1_B_01_01.png>, <Tile #2 - C1_S1_B_01_02.png>, <Tile #3 - C1_S1_B_02_01.png>, <Tile #4 - C1_S1_B_02_02.png>)
+(<Tile #1 - C2_S1_C_02_01_01_01.png>, <Tile #2 - C2_S1_C_02_01_01_02.png>, <Tile #3 - C2_S1_C_02_01_02_01.png>, <Tile #4 - C2_S1_C_02_01_02_02.png>)
+(<Tile #1 - C1_S1_B_02_01_01_01.png>, <Tile #2 - C1_S1_B_02_01_01_02.png>, <Tile #3 - C1_S1_B_02_01_02_01.png>, <Tile #4 - C1_S1_B_02_01_02_02.png>)
+(<Tile #1 - C2_S1_C_02_02_01_01.png>, <Tile #2 - C2_S1_C_02_02_01_02.png>, <Tile #3 - C2_S1_C_02_02_02_01.png>, <Tile #4 - C2_S1_C_02_02_02_02.png>)
+(<Tile #1 - C1_S1_B_02_02_01_01.png>, <Tile #2 - C1_S1_B_02_02_01_02.png>, <Tile #3 - C1_S1_B_02_02_02_01.png>, <Tile #4 - C1_S1_B_02_02_02_02.png>)
+(<Tile #1 - C2_S1_A_01_01_01_01.png>, <Tile #2 - C2_S1_A_01_01_01_02.png>, <Tile #3 - C2_S1_A_01_01_02_01.png>, <Tile #4 - C2_S1_A_01_01_02_02.png>)
+(<Tile #1 - C2_S1_A_01_02_01_01.png>, <Tile #2 - C2_S1_A_01_02_01_02.png>, <Tile #3 - C2_S1_A_01_02_02_01.png>, <Tile #4 - C2_S1_A_01_02_02_02.png>)
+(<Tile #1 - C2_S1_C_01_01.png>, <Tile #2 - C2_S1_C_01_02.png>, <Tile #3 - C2_S1_C_02_01.png>, <Tile #4 - C2_S1_C_02_02.png>)
+(<Tile #1 - C2_S1_B_02_01_01_01.png>, <Tile #2 - C2_S1_B_02_01_01_02.png>, <Tile #3 - C2_S1_B_02_01_02_01.png>, <Tile #4 - C2_S1_B_02_01_02_02.png>)
+(<Tile #1 - C1_S1_C_02_01_01_01.png>, <Tile #2 - C1_S1_C_02_01_01_02.png>, <Tile #3 - C1_S1_C_02_01_02_01.png>, <Tile #4 - C1_S1_C_02_01_02_02.png>)
+(<Tile #1 - C2_S1_B_01_01.png>, <Tile #2 - C2_S1_B_01_02.png>, <Tile #3 - C2_S1_B_02_01.png>, <Tile #4 - C2_S1_B_02_02.png>)
+(<Tile #1 - C2_S1_B_02_02_01_01.png>, <Tile #2 - C2_S1_B_02_02_01_02.png>, <Tile #3 - C2_S1_B_02_02_02_01.png>, <Tile #4 - C2_S1_B_02_02_02_02.png>)
+(<Tile #1 - C1_S1_C_02_02_01_01.png>, <Tile #2 - C1_S1_C_02_02_01_02.png>, <Tile #3 - C1_S1_C_02_02_02_01.png>, <Tile #4 - C1_S1_C_02_02_02_02.png>)
+(<Tile #1 - C2_S1_A_01_01.png>, <Tile #2 - C2_S1_A_01_02.png>, <Tile #3 - C2_S1_A_02_01.png>, <Tile #4 - C2_S1_A_02_02.png>)
+(<Tile #1 - C1_S1_A_01_01_01_01.png>, <Tile #2 - C1_S1_A_01_01_01_02.png>, <Tile #3 - C1_S1_A_01_01_02_01.png>, <Tile #4 - C1_S1_A_01_01_02_02.png>)
+(<Tile #1 - C1_S1_A_01_02_01_01.png>, <Tile #2 - C1_S1_A_01_02_01_02.png>, <Tile #3 - C1_S1_A_01_02_02_01.png>, <Tile #4 - C1_S1_A_01_02_02_02.png>)
+>>> 
+>>> images=glob.glob('MATCR24C/*.png', recursive=True)
+>>> for image in images:
+...     slice(image, 4, save=False)
+... 
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+(<Tile #1>, <Tile #2>, <Tile #3>, <Tile #4>)
+>>> #Files are now split and saved in the same directory.
+>>> 
+>>> 
+>>> #Step 3: Do some image preprocessing, filter, binary, etc. 
+>>> 
+>>> #Step 4: Train the model with the images, negative and positive. Will use 80% of whole images to train and leave 20% to test.  https://www.simplilearn.com/tutorials/deep-learning-tutorial/guide-to-building-powerful-keras-image-classification-models
+>>> 
+>>> #Step 5: If model looks good, apply it to the rest of the patient samples, that is 40 samples 
+>>> 
+>>> 
