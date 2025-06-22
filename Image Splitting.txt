@@ -3,7 +3,7 @@
 >>> 
 >>> #The model will be trained with sets of clumps grabbed from images, either as negative clumps or positive clumps. 
 >>> 
->>> #To simplify the process, each image will be spliced into a set of sub images, as small as possible while still showing clumps at good resolution. 
+>>> #To simplify the process, each image will be split into a set of sub images, as small as possible while still showing clumps at good resolution. 
 >>> 
 >>> #Step 1: Crop all images to the same size and keep them with square dimensions. Use FIJI for this step. Crop them to 1200X1200
 >>>     1.1: Import raw images to Fiji as an image sequence, select the area of interest, crop all, and save as the new cropped image sequence. Keep the images square in shape.
